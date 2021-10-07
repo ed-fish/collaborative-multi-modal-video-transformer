@@ -3,19 +3,27 @@ datamodule:
 
   datasets:
     train:
-      _target_: src.pl_data.dataset.MyDataset
+    - _target_: src.pl_data.dataset.MyDataset
       name: YourTrainDatasetName
       path: ${oc.env:YOUR_TRAIN_DATASET_PATH}
+      experts: ["test-img-embeddings", "test-video-embeddings", "audio-embeddings", "test-location-embeddings"]
+      seq_len: 200
+
 
     val:
       - _target_: src.pl_data.dataset.MyDataset
         name: YourValDatasetName
         path: ${oc.env:YOUR_VAL_DATASET_PATH}
+        experts: ["test-img-embeddings", "test-video-embeddings", "audio-embeddings", "test-location-embeddings"]
+        seq_len: 200
+
 
     test:
       - _target_: src.pl_data.dataset.MyDataset
         name: YourTestDatasetName
         path: ${oc.env:YOUR_TEST_DATASET_PATH}
+        experts: ["test-img-embeddings", "test-video-embeddings", "audio-embeddings", "test-location-embeddings"]
+        seq_len: 200
 
   num_workers:
     train: 8
@@ -24,5 +32,14 @@ datamodule:
 
   batch_size:
     train: 32
-    val: 16
-    test: 16
+    val: 32
+    test: 32
+
+  mixing:
+    concat: False
+    collab: True
+    concat_norm: False
+    concat_softmax: False
+    frame_agg: "none"
+
+

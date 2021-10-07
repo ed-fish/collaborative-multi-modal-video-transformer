@@ -109,7 +109,8 @@ def run(cfg: DictConfig) -> None:
             **wandb_config,
             tags=cfg.core.tags,
         )
-        hydra.utils.log.info(f"W&B is now watching <{cfg.logging.wandb_watch.log}>!")
+        hydra.utils.log.info(
+            f"W&B is now watching <{cfg.logging.wandb_watch.log}>!")
         wandb_logger.watch(
             model,
             log=cfg.logging.wandb_watch.log,
